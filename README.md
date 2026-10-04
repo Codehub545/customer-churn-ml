@@ -221,7 +221,7 @@ jupyter notebook Customer_Churn_Prediction.ipynb
 Run the notebook cells from top to bottom.
 
 Author
-
+Pankaj
 Customer Churn Prediction — Machine Learning Project
 
 Built as an end-to-end machine learning project using Python and scikit-learn.
