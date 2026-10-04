@@ -1,21 +1,44 @@
-Customer Churn Prediction Using Machine Learning
+Customer Churn Prediction
+
+A machine learning project that predicts whether a telecom customer is likely to churn based on customer demographics, services, contract details, and billing information.
+
 Project Overview
 
-This project develops a machine learning system to predict customer churn using the IBM Telco Customer Churn sample dataset.
+Customer churn is an important business problem for subscription-based companies. Identifying customers who are more likely to leave can help businesses take preventive retention actions.
 
-The project demonstrates an end-to-end machine learning workflow including data cleaning, exploratory data analysis, feature engineering, preprocessing, model comparison, cross-validation, hyperparameter optimization, probability threshold analysis, and model evaluation.
+In this project, different machine learning classification models are trained and compared to predict customer churn.
+
+The project focuses on:
+
+Understanding the customer dataset
+
+Cleaning and preparing the data
+
+Performing exploratory data analysis
+
+Creating useful features
+
+Training multiple classification models
+
+Comparing model performance
+
+Evaluating the final model
+
+Identifying important features related to churn
 
 Dataset
 
-The dataset contains 7,043 telecom customers with information about:
+The project uses the Telco Customer Churn dataset.
+
+The dataset contains 7,043 customer records and 21 columns, including:
 
 Customer demographics
 
-Tenure
+Account information
+
+Internet and phone services
 
 Contract type
-
-Internet services
 
 Payment method
 
@@ -23,36 +46,83 @@ Monthly charges
 
 Total charges
 
-Customer churn
+Churn status
 
-The target variable is Churn.
+The target variable is:
 
-Machine Learning Workflow
-Raw Dataset
+Churn
+
+0 → Customer stayed
+
+1 → Customer churned
+
+Project Workflow
+
+The project follows a complete machine learning workflow:
+
+Data Loading
+     ↓
+Data Inspection
      ↓
 Data Cleaning
      ↓
-Exploratory Data Analysis
-     ↓
 Feature Engineering
+     ↓
+Exploratory Data Analysis
      ↓
 Train/Test Split
      ↓
-Preprocessing Pipeline
+Data Preprocessing
      ↓
 Model Training
      ↓
-Cross-Validation
+Model Comparison
      ↓
-Hyperparameter Optimization
+Model Evaluation
      ↓
-Final Evaluation
+Feature Importance
      ↓
-Saved ML Model
+Final Conclusion
 
-Models Compared
+Data Preparation
 
-Three classification algorithms were evaluated:
+During data preparation:
+
+TotalCharges was converted from text to numeric format.
+
+Missing values were identified and handled through the preprocessing pipeline.
+
+customerID was removed because it is an identifier rather than a predictive feature.
+
+Numerical features were standardized.
+
+Categorical features were converted using one-hot encoding.
+
+Additional features were created, including service count and average monthly spending.
+
+Exploratory Data Analysis
+
+Several relationships were explored, including:
+
+Overall customer churn distribution
+
+Contract type and churn
+
+Monthly charges and churn
+
+Customer tenure and churn
+
+The dataset contains:
+
+Customer Status	Customers	Percentage
+Stayed	5,174	73.46%
+Churned	1,869	26.54%
+
+This shows that the dataset is imbalanced, with more customers staying than churning.
+
+Machine Learning Models
+
+Three classification models were compared:
 
 Logistic Regression
 
@@ -60,103 +130,63 @@ Random Forest
 
 XGBoost
 
-Model performance was evaluated using:
+Model Performance
+Model	Accuracy	Precision	Recall	F1 Score	ROC-AUC
+Logistic Regression	0.7331	0.4983	0.7914	0.6116	0.8419
+Random Forest	0.7594	0.5323	0.7701	0.6295	0.8404
+XGBoost	0.8020	0.6632	0.5160	0.5805	0.8425
+Final Model
 
-Accuracy
+Random Forest was selected for further analysis because it achieved the highest F1-score among the three initial models while maintaining strong recall.
 
-Precision
+For a churn prediction problem, recall is important because failing to identify a customer who is actually going to churn may result in a missed opportunity for customer retention.
 
-Recall
+Final Model Evaluation
 
-F1-score
+The Random Forest model produced the following confusion matrix on the test set:
 
-ROC-AUC
+                 Predicted
+                 Stayed  Churned
 
-PR-AUC
-
-Feature Engineering
-
-Additional features were created:
-
-AverageMonthlySpend
-
-ServiceCount
-
-TenureGroup
-
-The customer ID was removed because it is an identifier rather than a useful predictive feature.
-
-Hyperparameter Optimization
-
-RandomizedSearchCV with 5-fold cross-validation was used to optimize the XGBoost model.
-
-Best parameters:
-
-n_estimators = 200
-max_depth = 2
-learning_rate = 0.03
-subsample = 0.8
-colsample_bytree = 0.8
+Actual Stayed       782      253
+Actual Churned       86      288
 
 
-Best cross-validation ROC-AUC:
+The model correctly identified 288 of the 374 actual churned customers in the test set.
 
-0.8492
+The project also evaluates the final model using:
 
-Final Test Results
+Confusion Matrix
 
-The tuned XGBoost model achieved:
+ROC Curve
 
-Metric	Result
-Accuracy	0.80
-ROC-AUC	0.846
-PR-AUC	0.6629
-Churn Precision	0.66
-Churn Recall	0.52
-Churn F1	0.58
-Threshold Analysis
+Precision-Recall Curve
 
-The project also evaluated different probability thresholds instead of relying only on the default 0.50 threshold.
+Feature Importance
 
-A threshold of 0.30 produced a higher recall/F1 trade-off for the original XGBoost configuration, demonstrating how classification thresholds can be adjusted according to the business objective.
+Key Takeaway
 
-Key Machine Learning Concepts Demonstrated
+The results show that machine learning can help identify customers who are at higher risk of churn.
 
-Data preprocessing
+The comparison also demonstrates why accuracy alone should not be used to select a churn prediction model. Different models performed differently across precision, recall, F1-score, and ROC-AUC.
 
-Missing-value handling
+In a real business setting, churn predictions could be used to support customer retention strategies by helping companies focus their efforts on customers who are more likely to leave.
 
-Categorical encoding
+Project Structure
+customer-churn-ml/
+│
+├── data/
+│   └── Telco-Customer-Churn.csv
+│
+├── models/
+│   └── churn_model.pkl
+│
+├── Customer_Churn_Prediction.ipynb
+├── README.md
+├── requirements.txt
+└── .gitignore
 
-Feature scaling
-
-Feature engineering
-
-Class imbalance
-
-Stratified train/test splitting
-
-Machine learning pipelines
-
-Ensemble learning
-
-Gradient boosting
-
-Cross-validation
-
-Hyperparameter optimization
-
-ROC-AUC
-
-PR-AUC
-
-Precision/Recall trade-offs
-
-Classification threshold optimization
-
-Model persistence
-
-Technologies
+Technologies Used
 
 Python
 
@@ -164,32 +194,34 @@ Pandas
 
 NumPy
 
-Scikit-learn
-
-XGBoost
-
 Matplotlib
 
 Seaborn
 
+Scikit-learn
+
+XGBoost
+
 Joblib
+
+Jupyter Notebook
 
 How to Run
 
-Install dependencies:
+Clone the repository and install the required Python packages:
 
 pip install -r requirements.txt
 
 
-Run the project:
+Open the notebook:
 
-python churn_prediction.py
+jupyter notebook Customer_Churn_Prediction.ipynb
 
 
-The trained model is saved as:
+Run the notebook cells from top to bottom.
 
-models/churn_model.pkl
+Author
 
-Conclusion
+Customer Churn Prediction — Machine Learning Project
 
-This project demonstrates an end-to-end customer churn prediction workflow using multiple machine learning algorithms and systematic model evaluation. The final tuned XGBoost model achieved a test ROC-AUC of 0.846 and PR-AUC of 0.6629.
+Built as an end-to-end machine learning project using Python and scikit-learn.
